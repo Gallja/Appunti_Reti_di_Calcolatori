@@ -16,4 +16,4 @@ A, B, C e D sono macchine distribuite geograficamente e non necessariamente conn
 un sistema di rete crea i canali che consentono ad un calcolatore di entrare in connessione con un server per effettuare operazioni come lo scambio di file.  
 Per creare questo sistema di rete bisogna capire cosa aggiungere al **sistema operativo** di ogni macchina.  
 
-
+Un sistema di rete è possibile considerarlo come un vero e proprio grafo e i suoi nodi sono i cosiddetti **apparati di rete**.  
