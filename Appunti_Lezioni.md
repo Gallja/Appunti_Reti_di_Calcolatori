@@ -5,6 +5,9 @@
 - [Lezione 2](#lezione-2)
     - [Introduzione ai router](#introduzione-ai-router)
     - [Il concetto di pacchetto](#il-concetto-di-pacchetto)
+- [Lezione 3](#lezione-3)
+    - [Reti Best-Effort e Connection Oriented](#reti-best-effort-e-connection-oriented)
+    - [Approfondimento sulle reti Best-Effort](#approfondimento-sulle-best-effort)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -41,7 +44,7 @@ I router rappresentano un vero e proprio collo di bottiglia per quanto riguarda 
 I router non fanno altro che decidere il cammino delle informazioni lungo la rete, ma questa decisione può essere presa in più di un modo.  
 Nelle situazioni più semplici, la metrica è il numero di nodi, mentre nelle situazioni più "raffinate" è necessario che venga considerato anche il *tempo* come discriminante.  
 
-Definiamo $T_x$ la velocità di trasmissione di un **link**.  
+> Definiamo $T_x$ la velocità di trasmissione di un **link**.  
 
 Supponiamo di avere 2 nodi, che chiamiammo $N_1$ e $N_2$, connessi da un canale di comunicazione a 1 MegaBit al secondo (*Mbps*), ovvero 1000000 *bit al secondo*.  
 Ecco una rappresentazione grafica:
@@ -51,7 +54,7 @@ Ecco una rappresentazione grafica:
 
 Semplificando, un impulso elettrico di *5V* equivale al segnale di *1*, mentre quello di *0V* equivale a quello di *0*.
 
-**Quesito:** se voglio passare un'informazione di 1000 *bit* su questo canale (su cui può passare 1*Mbps*), cosa ci interessa sapere?  
+> **Quesito:** se voglio passare un'informazione di 1000 *bit* su questo canale (su cui può passare 1*Mbps*), cosa ci interessa sapere?  
 È necessario conoscere il **_tempo necessario_** alla porta *I/O* per trasmettere il numero di *bit* specificato. Ci viene in supporto un calcolo:  
 $T_x = \frac{1000 bit}{1000000 bps} = \frac{10^3 bit} {10^6 bit} = 10^{-3} bps = 1 ms $  
 
@@ -62,7 +65,8 @@ La soluzione più sensata in questo caso sarebbe quella di prendere l'intero fil
 
 In rete non passa quindi l'intero file, ma solo i frammenti necessari per poi costruire, a fine trasmissione, il tutto; i pacchetti trasmessi sono vere e proprie *unità dati*, che devono rispettare delle regole ben precise per garantire una trasmissione sicura.  
 
-Il pacchetto è suddiviso in 2 parti fondamentali:
+Il pacchetto è suddiviso in 2 parti fondamentali:  
+
 ![pacchetto](img/pacchetto.png)
 
 L'*host di provenienza* del pacchetto si occupa chiaramente della frammentazione del file da trasmettere, mentre l'*host di destinazione* si occupa di riassemblare tutti i pacchetti per avere a disposizione il file originale.  
@@ -72,3 +76,21 @@ Ovviamente quest'operazione deve essere sicura, nel senso che tutti i dati da tr
 2. Il $2^o$ fattore garantisce che i pacchetti arrivati non presentino duplicati. Potremmo, ad esempio, introdurre una funzione adibita al controllo di correttezza di una certa sequenza di bit, imponendone inoltre la ritrasmissione nel caso in cui qualcosa fosse andato storto;  
 3. Il $3^o$ fattore garantisce l'effettiva correttezza del pacchetto arrivato a destinazione.  
 
+### LEZIONE 3
+La creazione di un'architettura funzionale di una rete di calcolatori è un lavoro molto complicato a causa del fatto che questa definizione debba diventare uno **_standard_**.  
+La complicazione nel progettare un sistema di rete è infatti rappresentata dal fatto che si debba specificare uno o più algoritmi da utilizzare in una serie di regole che tutti i componenti sono disposti ad accettare: il **_protocollo_**.  
+
+#### Reti Best-Effort e Connection-Oriented
+Le connessioni **_Best-Effort_** sono i tipi di connessioni più diffuse (come ad esempio _internet_) e sono progettate per garantire al massimo l'affidabilità durante la trasmissione del pacchetto da mittente a destinatario, anche se questo non è sempre garantito al 100%.  
+Proprio per questo motivo deriva il nome _"Best Effort"_, ovvero che garantiscono il _"massimo sforzo"_ per funzionare al meglio, ma non necessariamente sono in grado di garantire l'affidabilità completa dal sistema di comunicazione.  
+
+Esiste un altro tipo di connessioni chiamate **_Connection-Oriented_**, che come si può facilmente intuire sono orientate alla connessione e viene utilizzato un protocollo di comunicazione per stabilire la connessione fra un host *A* ed un host *B*.  
+
+>Da ora in poi, per comodità, chiameremo **_S_** la **_Sorgente_** e **_D_** la **_Destinazione_** del singolo pacchetto da inviare e ricevere.  
+
+#### Approfondimento sulle Best-Effort
+Le connessioni *Best-Effort*, oltre ad essere quelle più diffuse, sono generalmente abbastanza affidabili e funzionano mediamente bene: dal punto di vista delle probabilità è molto difficile che avvenga un errore e, allo stesso tempo, viene garantita una certa efficienza in termini di tempo.  
+Come detto in precedenza, però, è importante ribadire che non garantiscono il corretto arrivo dei pacchetti anche se fanno del _"loro meglio"_, ma al contrario non sono in grado di garantire neanche che i pacchetti arrivino nello stesso ordine con cui sono stati inviati o che non vi siano duplicati dello stesso pacchetto.  
+
+>Introduciamo a questo punto una nuova grandezza che misura il tempo finito che intercorre dal momento in cui si immette il pacchetto in rete al momento in cui il destinatario lo riceve: $\Delta t$.  
+Supponiamo adesso che **S** mandi a **D** una sequenza di pacchetti, ipotizzando che i nodi $N_1$ e $N_2$ facciano parte della *sottorete*, e che impieghi $\Delta t$ per trasmettere un solo pacchetto.  
