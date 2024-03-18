@@ -47,6 +47,7 @@ Nelle situazioni più semplici, la metrica è il numero di nodi, mentre nelle si
 > Definiamo $T_x$ la velocità di trasmissione di un **link**.  
 
 Supponiamo di avere 2 nodi, che chiamiammo $N_1$ e $N_2$, connessi da un canale di comunicazione a 1 MegaBit al secondo (*Mbps*), ovvero 1000000 *bit al secondo*.  
+I 2 nodi rappresentano le rispettive **_sottoreti_** dei 2 calcolatori.  
 Ecco una rappresentazione grafica:
 
 ![connessione nodi](img/connessione_nodi.png)
@@ -94,3 +95,31 @@ Come detto in precedenza, però, è importante ribadire che non garantiscono il 
 
 >Introduciamo a questo punto una nuova grandezza che misura il tempo finito che intercorre dal momento in cui si immette il pacchetto in rete al momento in cui il destinatario lo riceve: $\Delta t$.  
 Supponiamo adesso che **S** mandi a **D** una sequenza di pacchetti, ipotizzando che i nodi $N_1$ e $N_2$ facciano parte della *sottorete*, e che impieghi $\Delta t$ per trasmettere un solo pacchetto.  
+Va però sottolineato che all'interno del valor di $\Delta t$ vi sono a sua volta altri valori: il tempo che serve a **S** per immettere in rete il pacchetto, il tempo di cui si necessita per farlo arrivare al router d'ingresso nella rete $N_1$ e che lo manderà ad $N_2$ e infine il tempo che serve proprio a $N_2$ per inviare il pacchetto a **S**.  
+
+Riassumendo, se io volessi inviare 4 pacchetti, avrei:
+- $\Delta t_0$ **-->** Tempo necessario affinché il primo pacchetto arrivi a destinazione.  
+**. . .**
+- $\Delta t_3$ **-->** Tempo necessario affinché il primo pacchetto arrivi a destinazione, il tutto dopo un tempo $\Delta t_3$ (a sua volta dopo un tempo $\Delta t_2$ e così via...).  
+
+Nonostante tutti i $\Delta T$ riguardino i medesimi nodi sorgente e destinazione all'interno della rete, non sono uguali, ma esiste una **_varianza_** sul ritardo dovuta, ad esempio, al carico di lavoro dei nodi: il **_JITTER_**.  
+Da notare in particolare che il **_jitter_** non è quasi mai costante, ma variabile.  
+
+Ecco una rappresentazione grafica per capirne appieno il concetto:  
+
+![schema pacchetti](img/delta.png)
+
+A questo punto è facile intuire che i pacchetti, per essere riassemblati dall'host **D**, hanno necessariamente bisogno di un *numero di sequenza* del pacchetto stesso, che si trova all'interno dell'header.  
+
+Studiamo una casistica più complicata: supponiamo di voler inviare in rete e riprodurre un tipo di file *multimediale* come, ad esempio, un file audio (come peraltro avviene oggigiorno in rete con i contenuti in streaming).  
+Fin da subito è possibile individuare il problema maggiore: per quanto riguarda la voce è assolutamente necessario campionare il segnale e, per il [teorema di Nyquist-Shannon](https://it.wikipedia.org/wiki/Teorema_del_campionamento_di_Nyquist-Shannon), lo dovrei fare almeno 8000 volte al secondo per non perdere troppo *contenuto informativo*.  
+Facendo un paio di conti, se raccolgo 8000 campioni della voce, devo trasmettere ogni 125 $\mu s$ e questo vincolo deve obbligatoriamente essere rispettato.  
+
+A questo punto però si pone una questione: com'è possibile gestire l'invio ripetuto ed in un lasso di tempo così ridotto con il **_jitter_**?  
+Idealmente dovrei garantire che il **_jitter_** non ci sia, in modo tale che non vi sia il rischio di avere una ricezione di qualità non equivalente a quella della sorgente.  
+
+>**Soluzione: _Buffer di PlayOut_**  
+Ogni nodo di destinazione è dotato di un buffer apposito per riuscire a compensare le varianze sul ritardo.  
+
+La comunicazione multimediale è infatti molto tollerante per quanto riguarda gli errori e un eventuale perdita di un frammento che compone la comunicazione non inficia sulla qualità generale della stessa.  
+
