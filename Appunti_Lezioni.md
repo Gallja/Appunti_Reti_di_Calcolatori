@@ -10,7 +10,7 @@
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
 
-![first img](img/img1.jpg)
+![first img](img/img1.png)
 
 A, B, C e D sono macchine distribuite geograficamente e non necessariamente connesse fra di loro, ma interconnettibili attraverso un **sistema di rete**.  
 
