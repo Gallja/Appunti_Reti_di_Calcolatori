@@ -202,5 +202,5 @@ Dopo la **_flag_**, viene salvato un *bit* alla volta all'interno di un *buffer*
 Questo procedimento prende il nome di **_bit stuffing_**.  
 
 > Ricapitolando:
-- Il **trasmettitore** aggiunge sempre uno *0* dopo 5 *1* a livello **fisico**.  
-- Il **ricevitore**, dopo 5 *1*, estrae il *bit* successivo (nel caso in cui fosse *0* lo butto via e continuo a leggere, mentre se è *1* mi fermo) e lo posiziona all'interno di un *buffer*.
+Il **trasmettitore** aggiunge sempre uno *0* dopo 5 *1* a livello **fisico**.  
+Il **ricevitore**, dopo 5 *1*, estrae il *bit* successivo (nel caso in cui fosse *0* lo butto via e continuo a leggere, mentre se è *1* mi fermo) e lo posiziona all'interno di un *buffer*.
