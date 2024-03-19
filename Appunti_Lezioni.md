@@ -141,3 +141,13 @@ I livelli funzionali di rete è possibile rappresentarli nel seguente modo:
 
 ![livelli](img/layers.png)
 
+- Livello **_Application_**: Funzionalità di rete che supportano gli utenti finali (ad esempio il protocollo *hhttp*);
+- Livello **_Transport_**: *end-to-end*, gli interlocutori sono gli host. I protocolli di questo layer sono il **_TCP_** (che garantisce affidabilità) e l'**_UDP_** (che, al contrario, garantisce buone prestazioni _real-time_, è maggiormente veloce, ma è al contempo meno affidabile e non gestisce in alcun modo la ridondanza dei pacchetti e la loro perdita durante il corso della trasmissione).  
+- Livello **_Network_**: contiene tutte le funzioni di **instradamento** (*Packet Tracer* è un software che si occupa della simulazione di questa funzionalità).  
+- Livello **_Data-Link_**: contiene le unità dati, i **frame**. Garantisce **affidabilità**.  
+- Livello **Physics**: si occupa della **trasmissione e ricezione**. Si occupa di ricevere ed inviare bit a bit, che possono essere ricevuti da uno strato fisico da un altro router per poi essere re-inviati al buffer dello strato *Data-Link*.  
+
+**NB:** le entità dello stesso livello dialogano fra di loro, grazie ai **protocolli**.  
+In sintesi, possiamo affermare che per il *dialogo orizzontale* ci si avvale dei **protocolli**, mentre per quanto riguarda il *dialogo verticale* ci si avvale dell'**implementazione**.  
+
+**OSSERVAZIONE:** Le **_socket_** non sono un vero e proprio livello, ma sono funzioni del *Sistema Operativo* che creano [*binding*](https://it.wikipedia.org/wiki/Binding#:~:text=In%20informatica%20il%20binding%20%C3%A8,ed%20il%20suo%20corrispettivo%20valore.) tra un processo ed il processo remoto con cui sta comunicando.
