@@ -9,6 +9,7 @@
     - [Reti Best-Effort e Connection Oriented](#reti-best-effort-e-connection-oriented)
     - [Approfondimento sulle reti Best-Effort](#approfondimento-sulle-best-effort)
     - [I livelli funzionali](#i-livelli-funzionali)
+- [Lezione 4](#lezione-4)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -151,3 +152,7 @@ I livelli funzionali di rete è possibile rappresentarli nel seguente modo:
 In sintesi, possiamo affermare che per il *dialogo orizzontale* ci si avvale dei **protocolli**, mentre per quanto riguarda il *dialogo verticale* ci si avvale dell'**implementazione**.  
 
 **OSSERVAZIONE:** Le **_socket_** non sono un vero e proprio livello, ma sono funzioni del *Sistema Operativo* che creano [*binding*](https://it.wikipedia.org/wiki/Binding#:~:text=In%20informatica%20il%20binding%20%C3%A8,ed%20il%20suo%20corrispettivo%20valore.) tra un processo ed il processo remoto con cui sta comunicando.
+
+![overhead](img/overhead.png)
+
+### LEZIONE 4
