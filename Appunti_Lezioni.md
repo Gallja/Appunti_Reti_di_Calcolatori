@@ -8,6 +8,7 @@
 - [Lezione 3](#lezione-3)
     - [Reti Best-Effort e Connection Oriented](#reti-best-effort-e-connection-oriented)
     - [Approfondimento sulle reti Best-Effort](#approfondimento-sulle-best-effort)
+    - [I livelli funzionali](#i-livelli-funzionali)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -120,6 +121,19 @@ Idealmente dovrei garantire che il **_jitter_** non ci sia, in modo tale che non
 
 >**Soluzione: _Buffer di PlayOut_**  
 Ogni nodo di destinazione è dotato di un buffer apposito per riuscire a compensare le varianze sul ritardo.  
+Sostanzialmente questo buffer viene utilizzato in modo tale da immagazzinare pacchetti audio all'interno di applicazioni interattive _real-time_,
 
 La comunicazione multimediale è infatti molto tollerante per quanto riguarda gli errori e un eventuale perdita di un frammento che compone la comunicazione non inficia sulla qualità generale della stessa.  
 
+**CONCLUSIONE: i parametri di rete necessari sono:**  
+- Tempo di **_Trasmissione_** $T_x$;
+- Tempo di **_Propagazione_** $T_p$;
+- Il **_Jitter_** $J_{it}$;
+- La **_probabilità d'errore_** $P_{err}$;  
+
+Tutte queste componenti non fanno altro che aumentare il valore della **_latenza_**, ovvero il tempo da aspettare per ricevere o inviare un contenuto in rete.  
+
+**Osservazione sulla probabilità d'errore:** al giorno d'oggi il valore $P_{link}$ di probabilità di errore dei link è nell'ordine di $10^7 | 10^9$, mentre quello relativo al valore $P_{pack}$ dei pacchetti nell'ordine di $\frac{10^3}{10^9} = 10^{-6}$.  
+I link, in particolare, sono più affidabili nel momento in cui si parta di reti in *fibra*, mentre lo sono meno per quanto riguarda le reti *mobili* e *radio*.  
+
+#### I livelli funzionali
