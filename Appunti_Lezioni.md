@@ -10,6 +10,8 @@
     - [Approfondimento sulle reti Best-Effort](#approfondimento-sulle-best-effort)
     - [I livelli funzionali](#i-livelli-funzionali)
 - [Lezione 4](#lezione-4)
+    - [Il concetto di Framing](#il-concetto-di-framing)
+    - [Il protocollo HDLC](#il-protocollo-hdlc)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -148,11 +150,50 @@ I livelli funzionali di rete è possibile rappresentarli nel seguente modo:
 - Livello **_Data-Link_**: contiene le unità dati, i **frame**. Garantisce **affidabilità**.  
 - Livello **Physics**: si occupa della **trasmissione e ricezione**. Si occupa di ricevere ed inviare bit a bit, che possono essere ricevuti da uno strato fisico da un altro router per poi essere re-inviati al buffer dello strato *Data-Link*.  
 
-**NB:** le entità dello stesso livello dialogano fra di loro, grazie ai **protocolli**.  
+>**NB:** le entità dello stesso livello dialogano fra di loro, grazie ai **protocolli**.  
 In sintesi, possiamo affermare che per il *dialogo orizzontale* ci si avvale dei **protocolli**, mentre per quanto riguarda il *dialogo verticale* ci si avvale dell'**implementazione**.  
 
-**OSSERVAZIONE:** Le **_socket_** non sono un vero e proprio livello, ma sono funzioni del *Sistema Operativo* che creano [*binding*](https://it.wikipedia.org/wiki/Binding#:~:text=In%20informatica%20il%20binding%20%C3%A8,ed%20il%20suo%20corrispettivo%20valore.) tra un processo ed il processo remoto con cui sta comunicando.
+>**OSSERVAZIONE:** Le **_socket_** non sono un vero e proprio livello, ma sono funzioni del *Sistema Operativo* che creano [*binding*](https://it.wikipedia.org/wiki/Binding#:~:text=In%20informatica%20il%20binding%20%C3%A8,ed%20il%20suo%20corrispettivo%20valore.) tra un processo ed il processo remoto con cui sta comunicando.
 
 ![overhead](img/overhead.png)
 
 ### LEZIONE 4
+
+#### Il concetto di Framing
+
+Nella lezione precedente abbiamo fatto una distinzione fra le connessioni **_Best Effort_** e quelle **_Connection Oriented_**.  
+Di ciò che era stato detto, ricordiamo in particolar modo che le prime non sono affidabili, mentre le altre sì.  
+
+Analizziamo la seguente figura:  
+
+![data link](img/data_link.png)
+
+Da qui nasce un **problema**: il **_framing_**.  
+Il **_frame_** è una sequenza di _bit_ provenienti dai livelli superiori.  
+
+![clock da sincronizzare](img/clock2.png)
+
+Il nodo **_B_** cercherà di ricevere i bit trasmessi sincronizzando il suo _clock_  di ricezione con quello di trasmissione di **_A_**.  
+Ciò che bisogna capire è quindi come fa **_A_** a far capire a **_B_** che sta iniziando a trasmettere dei bit e a fargli anche capire quando questa trasmissione ha fine.  
+
+**SOLUZIONE:** definire una sorta di _trigger_.
+
+> **NB**: nel momento in cui vi è uno stato di **NON trasmissione**, ci si trova in quello che viene chiamato **_stato di IDLE_** e vengono trasmessi una serie di *1*.  
+
+#### Il protocollo HDLC
+
+**_HDLC_** sta per:  
+High-Level  
+Data  
+Link  
+Control  
+
+Analizziamo il seguente schema:  
+
+![flags](img/flags.png)
+
+Le **_flag_** di inizio e fine devono per forza contenere almeno uno *0* e vengono incapsulate all'interno del **_frame_**; inoltre è **fondamentale** che nella parte di **_unità dati_ NON** vi sia una stringa di *bit* uguale alla **_flag_** per evitare eventuali perdite di dati.  
+
+Dopo la **_flag_**, viene salvato un *bit* alla volta all'interno di un *buffer*; attraverso una **maschera** (ovvero una finestra di scorrimento di 8 *bit*), dopo ogni *bit*, viene controllato se la sequenza ricevuta corrisponde alla **_flag_**.  
+
+![flag3](img/flag3.png)
