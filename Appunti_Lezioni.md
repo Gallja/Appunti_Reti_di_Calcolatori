@@ -137,3 +137,7 @@ Tutte queste componenti non fanno altro che aumentare il valore della **_latenza
 I link, in particolare, sono più affidabili nel momento in cui si parta di reti in *fibra*, mentre lo sono meno per quanto riguarda le reti *mobili* e *radio*.  
 
 #### I livelli funzionali
+I livelli funzionali di rete è possibile rappresentarli nel seguente modo:  
+
+![livelli](img/layers.png)
+
