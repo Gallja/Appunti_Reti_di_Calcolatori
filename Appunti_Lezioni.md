@@ -197,3 +197,10 @@ Le **_flag_** di inizio e fine devono per forza contenere almeno uno *0* e vengo
 Dopo la **_flag_**, viene salvato un *bit* alla volta all'interno di un *buffer*; attraverso una **maschera** (ovvero una finestra di scorrimento di 8 *bit*), dopo ogni *bit*, viene controllato se la sequenza ricevuta corrisponde alla **_flag_**.  
 
 ![flag3](img/flag3.png)
+
+> **SOLUZIONE:** si aggiungono degli zeri, ovvero dei **_bit di controllo_** dopo cinque *1* di fila.  
+Questo procedimento prende il nome di **_bit stuffing_**.  
+
+> Ricapitolando:
+- Il **trasmettitore** aggiunge sempre uno *0* dopo 5 *1* a livello **fisico**.  
+- Il **ricevitore**, dopo 5 *1*, estrae il *bit* successivo (nel caso in cui fosse *0* lo butto via e continuo a leggere, mentre se è *1* mi fermo) e lo posiziona all'interno di un *buffer*.
