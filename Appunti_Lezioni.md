@@ -234,3 +234,23 @@ Non essendo più in grado di trasmettere il pacchetto 4, il **trasmettitore** el
 **4-** Variabile di *Ricezione*  
 **5-** Numero di sequenza di *pacchetto* e *ACK*  
 
+#### RTT e tempi di propagazione
+
+![tempo di propagazione](img/tempo_propagazione.png)
+
+> **Domanda:** quanto pesa il tempo di propagazione e quanto quello di trasmissione sul **_RTT_**?  
+Dipende dalle caratteristiche tecnologiche del sistema.  
+
+> Nel primo caso la maggior parte del **_RTT_** è occupata dalla trasmissione del pacchetto e non è possibile fare altro.  
+
+> Nel secondo caso, in cui $2T_p > T_x$, è possibile aumentare l'efficienza della **porta I/O** (è infatti possibile mandare più frame prima di ricevere l'**ACK**).  
+
+A questo punto è possibile introdurre un nuovo parametro di prestazione: l'**_utilizzo del canale_**.  
+
+> **Formula**: $U = \frac{T_x}{RTT}$  
+Più questo valore tende a *1*, maggiore è l'efficienza.  
+
+Se ho i seguenti 2 casi:  
+1. $U = \frac{0,1}{0,12} = 0,83$ --> Utilizzo del canale all'**80%**  
+2. $U' = \frac{0,1}{0,3} = 0,33$ --> Utilizzo del canale all'**30%**  
+
