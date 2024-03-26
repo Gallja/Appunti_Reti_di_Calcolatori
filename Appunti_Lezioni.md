@@ -13,6 +13,9 @@
     - [Il concetto di Framing](#il-concetto-di-framing)
     - [Il protocollo HDLC](#il-protocollo-hdlc)
     - [Affidabilità di un protocollo di livello 2](#affidabilità-di-un-protocollo-di-livello-2)
+    - [Round Trip Time - RTT](#rtt-e-tempi-di-propagazione)
+    - [Finestra di frame](#finestra-di-frame)
+- [Lezione 5](#lezione-5)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -263,6 +266,8 @@ Come faccio a **massimizzare** questo caso? Idealmente dovrei inviare 3 frame in
 > **OSSERVAZIONE:** Devo svincolarmi dalla situazione vista finora; detto in altre parole, non devo aver più bisogno di trasmettere l'**ACK** per trasmettere un nuovo **frame**, ma devo trasmettere una vera e propria **_finestra di frame_**.  
 **FORMULA**: $U = K * \frac{t_x}{t_x + 2T_p}$ dove **_K_** è la dimensione della finestra di $T_x$.  
 
+#### Finestra di frame
+
 Ecco come funziona la finestra di frame:  
 
 ![frame window](img/finestra_frame.png)
@@ -274,5 +279,24 @@ Ecco come funziona la finestra di frame:
 > **Domanda:** se ho perdite di **frame**? Necessito di politiche per la gestione della *ri-trasmissione*.  
 
 Le 2 modalità diverse per la ricezione:
-1. **Con buffer**: mantengo i frame ricevuti correttamente senza il bisogno di ritrasmettere l'intera *finestra*.  
-2. **Senza buffer**: non necessito di spazio ulteriore.
+1. **Con buffer**: mantengo i frame ricevuti correttamente senza il bisogno di ritrasmettere l'intera *finestra*, ma solo i *frame* che risultano mancanti. In questo caso si utilizza la cosiddetta tecnica del **_Selective Repeat_**.  
+2. **Senza buffer**: non necessito di spazio ulteriore. In quest'altro caso utilizziamo il **_"Go Back N"_** (in sintesi: _"aspetto fino a quando non arriva il frame corretto in sequenza"_).
+
+### LEZIONE 5
+
+> **Premessa:** cosa sono i protocolli affidabili a **_finestra scorrevole_**. La finestra "slitta" in avanti man mano che vengono ricevuti gli **ACK** dei frame.  
+
+> **Esempio:** finestra di grandezza **_5_ -->** posso trasmettere al massimo **_5_** *frame*, poi ho bisogno di ricevere almeno 1 **ACK**.  
+
+Come abbiamo visto nella lezione precedente, la modalità di ricezione può essere *senza buffer*, e in tal caso si parla di **"Go Back N"**, oppure *con buffer*, e in questo caso siamo di fronte al **"Selective Repeat"**.  
+
+In questa lezione vedremo queste tecniche nel dettagio.  
+
+#### SELECTIVE REPEAT
+
+![selective repeat](img/selective_repeat.png)
+
+
+#### GO BACK N
+
+![go back n](img/go_back_n.png)
