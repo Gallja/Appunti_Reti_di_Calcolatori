@@ -301,6 +301,9 @@ In questa lezione vedremo queste tecniche nel dettagio.
 
 ![selective repeat](img/selective_repeat.png)
 
+Da questo schema noto che, nel momento in cui il *frame* **N + 1** è mancante, mando un "**ACK inverso** (ovvero un **NAK**) per segnalare e mandare un messaggio d'*errore*; ciò che implicitamente richiede il **NAK** è inoltre di ritrasmettere proprio il frame **N + 1**.  
+
+Un altro aspetto che è importante notare nello schema è che il trasmettitore è dotato di un **_buffer di ricezione_** all'interno del quale è possibile salvare i *frame* e, allo stesso tempo, fanno capire al ricevente prprio se ci si trova dinanzi alla mancanza di un *frame*.
 
 #### GO BACK N
 
