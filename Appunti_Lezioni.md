@@ -274,6 +274,8 @@ Ecco come funziona la finestra di frame:
 
 ![frame window](img/finestra_frame.png)
 
+A differenza degli schemi precedenti, in questo caso, per semplicità, ne viene utilizzato uno in cui lo scorrimento del tempo è orizzontale e non verticale.  
+
 - Dalla dimensione della finestra dipende anche la dimensione dei **buffer**.  
 - Per quanto riguarda i **buffer di trasmissione**, tengo al loro interno delle copie di frame per un'eventuale ri-trasmissione fino al momento in cui non ricevo l'**ACK** corrispondente.  
 - Logicamente, nel momento in cui ricevo il frame corretto, il **buffer** si svuota poiché non mantiene copie.  
