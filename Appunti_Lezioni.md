@@ -12,6 +12,7 @@
 - [Lezione 4](#lezione-4)
     - [Il concetto di Framing](#il-concetto-di-framing)
     - [Il protocollo HDLC](#il-protocollo-hdlc)
+    - [Affidabilità di un protocollo di livello 2](#affidabilità-di-un-protocollo-di-livello-2)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -203,4 +204,33 @@ Questo procedimento prende il nome di **_bit stuffing_**.
 
 > Ricapitolando:
 Il **trasmettitore** aggiunge sempre uno *0* dopo 5 *1* a livello **fisico**.  
-Il **ricevitore**, dopo 5 *1*, estrae il *bit* successivo (nel caso in cui fosse *0* lo butto via e continuo a leggere, mentre se è *1* mi fermo) e lo posiziona all'interno di un *buffer*.
+Il **ricevitore**, dopo 5 *1*, estrae il *bit* successivo (nel caso in cui fosse *0* lo butto via e continuo a leggere, mentre se è *1* mi fermo) e lo posiziona all'interno di un *buffer*.  
+
+#### Affidabilità di un protocollo di livello 2
+
+Supponiamo che venga perso un pacchetto (*frame*) per comprendere meglio l'utilità del numero di sequenza:
+
+![vs e vr](img/vs_vr.png)
+
+Per prima cosa, noto che, nel momento in cui al punto **_B_** vengono inviati 2 pacchetti uguali è possibile notarlo proprio perché ho il medesimo numero di sequenza, ma non solo: ho anche 2 variabili fondamentali.  
+
+> **Variabile Invio (o "Send")**: contatore incrementato se e solo se si riceve l'**_ACK_** corrispondente.  
+**Variabile Ricezione**: valore che indica il numero progressivo del pacchetto che ci si aspetta di ricevere; nel momento in cui non fosse così, il pacchetto viene scartato.  
+
+Analizziamo ora i punti numerati del disegno:  
+1. Il **_CLK_** scade e, a questo punto, il pacchetto viene iniviato nuovamente;  
+2. L'**_ACK_** viene ricevuto in ritardo e conseguentemente il quarto pacchetto può essere inviato;  
+3. Il quarto pacchetto si interrompe durante l'invio, di conseguenza il ricevitore manda un **_ACK_** per *resettare* il timer e reinviare il quarto pacchetto mai arrivato;  
+4. A questo punto viene inviato il quinto pacchetto che verrà ricevuto correttamente (anche se il quarto pacchetto, come si evince dal disegno, è stato perso).  
+
+Non essendo più in grado di trasmettere il pacchetto 4, il **trasmettitore** elimina la sua copia nel buffer di ri-trasmissione.  
+
+> **SOLUZIONE:** Anche nell'**_ACK_** viene aggiunto il numero di sequenza per ogni frame corrispondente.  
+
+> **CONCLUSIONE:** per avere a disposizione una base per un protocollo affidabile di **livello 2**, necessitiamo di:  
+**1-** *Timer*  
+**2-** Buffer di *ri-trasmissione*  
+**3-** Variabile di *Send*  
+**4-** Variabile di *Ricezione*  
+**5-** Numero di sequenza di *pacchetto* e *ACK*  
+
