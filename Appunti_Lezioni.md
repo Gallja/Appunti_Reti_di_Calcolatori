@@ -267,3 +267,12 @@ Ecco come funziona la finestra di frame:
 
 ![frame window](img/finestra_frame.png)
 
+- Dalla dimensione della finestra dipende anche la dimensione dei **buffer**.  
+- Per quanto riguarda i **buffer di trasmissione**, tengo al loro interno delle copie di frame per un'eventuale ri-trasmissione fino al momento in cui non ricevo l'**ACK** corrispondente.  
+- Logicamente, nel momento in cui ricevo il frame corretto, il **buffer** si svuota poiché non mantiene copie.  
+
+> **Domanda:** se ho perdite di **frame**? Necessito di politiche per la gestione della *ri-trasmissione*.  
+
+Le 2 modalità diverse per la ricezione:
+1. **Con buffer**: mantengo i frame ricevuti correttamente senza il bisogno di ritrasmettere l'intera *finestra*.  
+2. **Senza buffer**: non necessito di spazio ulteriore.
