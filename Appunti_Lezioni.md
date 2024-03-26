@@ -16,6 +16,8 @@
     - [Round Trip Time - RTT](#rtt-e-tempi-di-propagazione)
     - [Finestra di frame](#finestra-di-frame)
 - [Lezione 5](#lezione-5)
+    - [Selective Repeat](#selective-repeat)
+    - [Go Back N](#go-back-n)
 
 
 ### LEZIONE 1 - INTRODUZIONE
