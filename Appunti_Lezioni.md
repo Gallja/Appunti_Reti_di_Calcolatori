@@ -62,7 +62,7 @@ Semplificando, un impulso elettrico di *5V* equivale al segnale di *1*, mentre q
 
 > **Quesito:** se voglio passare un'informazione di 1000 *bit* su questo canale (su cui può passare 1*Mbps*), cosa ci interessa sapere?  
 È necessario conoscere il **_tempo necessario_** alla porta *I/O* per trasmettere il numero di *bit* specificato. Ci viene in supporto un calcolo:  
-$T_x = \frac{1000 bit}{1000000 bps} = \frac{10^3 bit} {10^6 bit} = 10^{-3} bps = 1 ms $  
+$T_x = \frac{info_{da inviare}}{capacità_{canale}} = \frac{1000 bit}{1000000 bps} = \frac{10^3 bit} {10^6 bit} = 10^{-3} bps = 1 ms $  
 
 #### Il concetto di pacchetto
 Supponiamo di voler scambiare tra due **host** *A* e *B* un file di dimensione di 1 *Mb*.  
@@ -236,14 +236,18 @@ Non essendo più in grado di trasmettere il pacchetto 4, il **trasmettitore** el
 
 #### RTT e tempi di propagazione
 
+> **Definizione di RTT:** _Round Trip Time_, ovvero il tempo che intercorre fra l'invio di un segnale e la ricezione della conferma di arrivo dello stesso.
+
 ![tempo di propagazione](img/tempo_propagazione.png)
 
-> **Domanda:** quanto pesa il tempo di propagazione e quanto quello di trasmissione sul **_RTT_**?  
-Dipende dalle caratteristiche tecnologiche del sistema.  
+> $Domanda^1$: quanto pesa il tempo di propagazione e quanto quello di trasmissione sul **_RTT_**?  
+Dipende dalle caratteristiche tecnologiche del sistema.
 
-> Nel primo caso la maggior parte del **_RTT_** è occupata dalla trasmissione del pacchetto e non è possibile fare altro.  
+> $Domanda^2$: perché nella formula del **_RTT_** conto per 2 volte il **tempo di propagazione**, ma solo 1 volta il **tempo di trasmissione**?  
+Se osserviamo lo schema, infatti, dopo aver inviato correttamente un **frame** ci si aspetta in tutta risposta l'arrivo di un **ACK**, il cui *tempo di trasmissione* dovrebbe essere contato. Il punto della questione sta nel fatto che questo tempo è rappresentato da un valore talmente piccolo che **può essere trascurato**.  
 
-> Nel secondo caso, in cui $2T_p > T_x$, è possibile aumentare l'efficienza della **porta I/O** (è infatti possibile mandare più frame prima di ricevere l'**ACK**).  
+Nel primo caso la maggior parte del **_RTT_** è occupata dalla trasmissione del pacchetto e non è possibile fare altro.  
+Nel secondo caso, in cui $2T_p > T_x$, è possibile aumentare l'efficienza della **porta I/O** (è infatti possibile mandare più frame prima di ricevere l'**ACK**).  
 
 A questo punto è possibile introdurre un nuovo parametro di prestazione: l'**_utilizzo del canale_**.  
 
@@ -253,4 +257,13 @@ Più questo valore tende a *1*, maggiore è l'efficienza.
 Se ho i seguenti 2 casi:  
 1. $U = \frac{0,1}{0,12} = 0,83$ --> Utilizzo del canale all'**80%**  
 2. $U' = \frac{0,1}{0,3} = 0,33$ --> Utilizzo del canale all'**30%**  
+
+Come faccio a **massimizzare** questo caso? Idealmente dovrei inviare 3 frame in *parallelo* (poiché $0,33 * 3 = 1$).  
+
+> **OSSERVAZIONE:** Devo svincolarmi dalla situazione vista finora; detto in altre parole, non devo aver più bisogno di trasmettere l'**ACK** per trasmettere un nuovo **frame**, ma devo trasmettere una vera e propria **_finestra di frame_**.  
+**FORMULA**: $U = K * \frac{t_x}{t_x + 2T_p}$ dove **_K_** è la dimensione della finestra di $T_x$.  
+
+Ecco come funziona la finestra di frame:  
+
+![frame window](img/finestra_frame.png)
 
