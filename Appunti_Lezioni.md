@@ -296,7 +296,7 @@ Le 2 modalità diverse per la ricezione:
 
 Come abbiamo visto nella lezione precedente, la modalità di ricezione può essere *senza buffer*, e in tal caso si parla di **"Go Back N"**, oppure *con buffer*, e in questo caso siamo di fronte al **"Selective Repeat"**.  
 
-In questa lezione vedremo queste tecniche nel dettagio.  
+In questa lezione vedremo queste 2 tecniche e non solo nel dettagio.  
 
 #### SELECTIVE REPEAT
 
