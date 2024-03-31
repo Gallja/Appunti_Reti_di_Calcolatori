@@ -17,6 +17,7 @@
     - [Finestra di frame](#finestra-di-frame)
 - [Lezione 5](#lezione-5)
     - [Selective Repeat](#selective-repeat)
+    - [ACK Cumulativo](#ack-cumulativo)
     - [Go Back N](#go-back-n)
 
 
@@ -301,9 +302,19 @@ In questa lezione vedremo queste tecniche nel dettagio.
 
 ![selective repeat](img/selective_repeat.png)
 
-Da questo schema noto che, nel momento in cui il *frame* **N + 1** è mancante, mando un "**ACK inverso** (ovvero un **NAK**) per segnalare e mandare un messaggio d'*errore*; ciò che implicitamente richiede il **NAK** è inoltre di ritrasmettere proprio il frame **N + 1**.  
+Da questo schema noto che, nel momento in cui il *frame* **N + 1** è mancante, mando un "**ACK inverso**" (ovvero un **NAK**) per segnalare e mandare un messaggio d'*errore*; ciò che implicitamente richiede il **NAK** è inoltre di ritrasmettere proprio il frame **N + 1**.  
 
-Un altro aspetto che è importante notare nello schema è che il trasmettitore è dotato di un **_buffer di ricezione_** all'interno del quale è possibile salvare i *frame* e, allo stesso tempo, fanno capire al ricevente prprio se ci si trova dinanzi alla mancanza di un *frame*.
+Un altro aspetto che è importante notare nello schema è che il trasmettitore è dotato di un **_buffer di ricezione_** all'interno del quale è possibile salvare i *frame* e, allo stesso tempo, fanno capire al ricevente proprio se ci si trova dinanzi alla mancanza di un *frame*.
+
+#### ACK CUMULATIVO
+
+Esiste una politica, differente da quella appena vista, che semplifica il tutto: anzitutto l'**ACK** non è più legato ad uno specifico **frame** (in tal caso si passa da **ACK _selettivo_** ad **ACK _cumulativo_**).  
+Inoltre non sono più necessari gli **ACK inversi** o **NAK**.  
+
+**Approfondimento sugli ACK cumulativi:**  
+indica fino a quale *frame* si è ricevuti correttamente; sostanzialmente, ai fini di ottimizzare la comunicazione, invece di inviare un **ACK** per ogni *frame* inviato, il *Ricevente* può inviare un unico **ACK** che racchiuda l'informazione circa la sequenza di *frame* arrivati correttamente a destinazione.  
+
+Questo crea un vantaggio: consideriamo il caso in cui si perde una **ACK (n)**, che non viene trasmessa in maniera corretta, ma il *ricevente* ha comunque ricevuto correttamente il *frame*. Grazie a questa politica, nel momento in cui riceverà un altro *frame*, e conseguentemente riceverà un nuovo **ACK** (supponiamo **ACK(n + 1)**), questo "validerà" al *trasmettitore* entrambi i *frame* o *pacchetti* e ne evito l'eventuale ritrasmissione.
 
 #### GO BACK N
 
