@@ -334,3 +334,5 @@ Ecco una rappresentazione grafica di come funziona questa politica di livello 2:
 > **Caso particolare**: se non venissero ricevuti correttamente gli **ACK** di più *frame* e venissero ritrasmessi?
 
 ![caso particolare](img/caso_particolare.png)
+
+Se il numero di sequenza è **_#seq_ = k + 1**, dopo aver ricevuto **k = 3** *frame* per la prima volta, il ricevitore imposta **_V(R)_ = 4** e scarta i 3 *frame* ritrasmessi, poiché la politica **_Go Back N_** non prevedere **_buffer_** e si vuole ricevere solo il *frame* nella precisa sequenza.
