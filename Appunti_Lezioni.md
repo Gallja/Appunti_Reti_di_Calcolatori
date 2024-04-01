@@ -327,3 +327,10 @@ Ecco una rappresentazione grafica di come funziona questa politica di livello 2:
 
 ![go back n](img/go_back_n.png)
 
+> **Problema**: Quanto dovrebbe essere grande il campo che rappresenta il numero di sequenza del *frame* stesso? Tenendo conto che va fatto anche in base alla grandezza **_k_** della **finestra di trasmissione** e che è un problema che si pone nel momento in cui vengono perse quantità cospicue di *frame*. Inoltre rischierei di avere tanti *bit* da memorizzare per *#seq* grandi.
+
+> **Soluzione**: Al posto di avere un numero che viene incrementato ad ogni pacchetto, non si fa altro che resettare il *#seq* e ricominciare da 0 una volta che viene trasmesso un numero di *frame* pari alla grandezza della **finestra di trasmissione**.  
+
+> **Caso particolare**: se non venissero ricevuti correttamente gli **ACK** di più *frame* e venissero ritrasmessi?
+
+![caso particolare](img/caso_particolare.png)
