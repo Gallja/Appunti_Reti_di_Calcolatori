@@ -316,6 +316,14 @@ indica fino a quale *frame* si è ricevuti correttamente; sostanzialmente, ai fi
 
 Questo crea un vantaggio: consideriamo il caso in cui si perde una **ACK (n)**, che non viene trasmessa in maniera corretta, ma il *ricevente* ha comunque ricevuto correttamente il *frame*. Grazie a questa politica, nel momento in cui riceverà un altro *frame*, e conseguentemente riceverà un nuovo **ACK** (supponiamo **ACK(n + 1)**), questo "validerà" al *trasmettitore* entrambi i *frame* o *pacchetti* e ne evito l'eventuale ritrasmissione.
 
+![ack cumulativo](img/ack_cumulativo.png)
+
 #### GO BACK N
 
+Si tratta di una politica differente da quella dell'**ACK cumulativo**, che consente di ritrasmettere i *pacchetti* al ricevente, a partire dal frame non ricevuto.  
+Se supponessimo che il **Server** ha trasmesso il *frame* **N** e **N + 1**, ma **N + 1** non è arrivato a destinazione, anche se venissero correttamente trasmessi i *frame* **N + 2**, **N + 3**, ecc, il ricevente richiederebbe la ritrasmissione a partire da **N + 1** e successivi (questo perché i *frame* successivi a quello non arrivato correttamente non sono stati mandati ai livelli successivi).  
+
+Ecco una rappresentazione grafica di come funziona questa politica di livello 2:
+
 ![go back n](img/go_back_n.png)
+
