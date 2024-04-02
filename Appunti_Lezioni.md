@@ -356,3 +356,6 @@ Si tratta di una particolare forma di comunicazione in grado nativamente di mett
 Tutti ascoltano e viene mandato 1 solo messaggio; se ho _n_ nodi, allora dovrò inviare $2^n$ messaggi nella topologia **Punto a Punto**.  
 
 ### LEZIONE 6
+
+![broadcast 2](img/broadcast2.png)
+
