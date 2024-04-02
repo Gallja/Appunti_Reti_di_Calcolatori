@@ -19,6 +19,8 @@
     - [Selective Repeat](#selective-repeat)
     - [ACK Cumulativo](#ack-cumulativo)
     - [Go Back N](#go-back-n)
+    - [Point to Point Protocol](#ppp---point-to-point-protocol)
+- [Lezione 6](#lezione-6)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -336,3 +338,21 @@ Ecco una rappresentazione grafica di come funziona questa politica di livello 2:
 ![caso particolare](img/caso_particolare.png)
 
 Se il numero di sequenza è **_#seq_ = k + 1**, dopo aver ricevuto **k = 3** *frame* per la prima volta, il ricevitore imposta **_V(R)_ = 4** e scarta i 3 *frame* ritrasmessi, poiché la politica **_Go Back N_** non prevedere **_buffer_** e si vuole ricevere solo il *frame* nella precisa sequenza.
+
+> **Osservazione:** questo tipo di numerazione non andrebbe bene allo stesso modo per la politica della **_Selective Repeat_**.
+
+#### PPP - Point to Point Protocol
+
+Abbiamo visto finora un tipo di protocollo con topologia "_Punto a Punto_" di **Livello 2 (Data-Link)** e di veloce funzionamento.  
+
+Adesso analizzeremo un'altra topologia di rete: quella di tipo **_boradcast_**.
+
+![topologia broadcast](img/broadcast.png)
+
+In figura è possibile notare che è portata in esempio una **_rete locale_**.
+
+Si tratta di una particolare forma di comunicazione in grado nativamente di mettere in contatto direttamente chi parla e tutti gli altri nodi connessi alla rete in quel preciso momento.  
+
+Tutti ascoltano e viene mandato 1 solo messaggio; se ho _n_ nodi, allora dovrò inviare $2^n$ messaggi nella topologia **Punto a Punto**.  
+
+### LEZIONE 6
