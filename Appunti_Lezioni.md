@@ -359,3 +359,6 @@ Tutti ascoltano e viene mandato 1 solo messaggio; se ho _n_ nodi, allora dovrò 
 
 ![broadcast 2](img/broadcast2.png)
 
+> **Domanda**: come raggiungo solo una (o più) stazione e non tutte? Una soluzione potrebbe essere quella di far ricevere comunque a tutte le stazioni il *frame*, ma verrà scartato da quelle non interessate (conseguentemente ci dovrà essere una previa specificazione dei destinatari da parte del dispositivo che invia i dati).  
+
+> **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ che trasmette a tutte le stazioni ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di sincronizzazione**. Utilizzo la **mutua a esclusione**.
