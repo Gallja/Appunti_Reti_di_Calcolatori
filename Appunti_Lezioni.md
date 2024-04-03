@@ -343,9 +343,12 @@ Se il numero di sequenza è **_#seq_ = k + 1**, dopo aver ricevuto **k = 3** *fr
 
 #### PPP - Point to Point Protocol
 
-Abbiamo visto finora un tipo di protocollo con topologia "_Punto a Punto_" di **Livello 2 (Data-Link)** e di veloce funzionamento.  
+Abbiamo visto finora un tipo di comunicazione con topologia "_Punto a Punto_" di **Livello 2 (Data-Link)** e di veloce funzionamento.  
+Questa **topologia di comunicazione** è detta **_topologia a maglia_**.  
 
-Adesso analizzeremo un'altra topologia di rete: quella di tipo **_boradcast_**.
+Adesso analizzeremo un'altra topologia di rete: quella di tipo **_broadcast_**.  
+
+> **NB**: **NON** è possibile realizzare una *comunicazione broadcast* attraverso una *topologia a maglia*.  
 
 ![topologia broadcast](img/broadcast.png)
 
@@ -362,3 +365,5 @@ Tutti ascoltano e viene mandato 1 solo messaggio; se ho _n_ nodi, allora dovrò 
 > **Domanda**: come raggiungo solo una (o più) stazione e non tutte? Una soluzione potrebbe essere quella di far ricevere comunque a tutte le stazioni il *frame*, ma verrà scartato da quelle non interessate (conseguentemente ci dovrà essere una previa specificazione dei destinatari da parte del dispositivo che invia i dati).  
 
 > **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ che trasmette a tutte le stazioni ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di sincronizzazione**. Utilizzo la **mutua a esclusione**.
+
+Sostanzialmente si utilizza un accesso al canale esclusivo, come se fosse completamente dedicato: **non posso consentire a più dispositivi di trasmettere simultaneamente**.  
