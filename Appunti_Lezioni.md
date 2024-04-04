@@ -27,6 +27,7 @@
     - [Protocollo Ethernet](#protocollo-ethernet)
         - [Protocollo ALOHA](#protocollo-aloha)
         - [Protocllo CSMA-CD](#protocollo-csma-cd)
+            - [Binary Exponential Backoff](#beb-nel-dettaglio)
 
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
@@ -458,3 +459,36 @@ Schema riassuntivo:
 
 ![csma-cd](img/csma-cd.png)
 
+Come è possibile notare da questo disegno, la possibilità di avere una **collisione** esiste ancora nel momento in cui, dopo il *Carrier-Sense*, **A** e **B** trasmettono un *frame* nello stesso istante di tempo, ma, a differenza del *protocollo ALOHA*, non c'è più bisogno di trasmettere l'intero pacchetto: se 2 stazioni collidono, blocco la trasmissione.  
+
+> **NB**: La probabilità di collisione aumenta all'aumentare delle stazioni presenti sul canale.  
+
+**Approfondimento su come ci si comporta in caso di collisione:**  
+Nel momento in cui ci si presenta di fronte ad una *collisione* questo protocollo fa in modo tale che, prima di ritrasmettere, ogni nodo attenda un tempo determinato dal **_BEB_** (_"Binary Exponential Backoff"_).  
+
+#### BEB nel dettaglio
+
+Come abbiamo già detto, la ritrasmissione dei *frame* coinvolti nella collisione avviene dopo un tempo $t$ casuale ottenuto tramite tecnica del *Binary Exponential Backoff*. Vediamo la formula:  
+
+$BEB = [0 : 2^i-1] * UT$  
+- $i$ --> numero di collisioni, compreso fra 1 e 16;  
+- $UT$ --> unità di tempo.  
+
+Va fatto presente che con il **BEB** esiste comunque la possibilità che 2 frame collidano nel caso in cui venisse generato lo stesso identico numero, ma dal punto di vista probabilistico è molto raro che succeda.  
+
+Inoltre ogni stazione ha un contatore apposito per la generazione di un numero casuale per quanto riguarda l'indice $i$ del **BEB**.  
+
+**Vantaggio principale:** si tratta di un algoritmo **adattivo al traffico percepito**, poiché dipende dal numero $i$ di collisioni avvenute.  
+**Svantaggio principale:** l'algoritmo "dilata" l'accesso e non garantisce *fairness* (concetto visto anche per il *protocollo Token-Ring*).  
+
+> **Osservazione**:  
+$U = \frac{t_x}{t_x + 2t_p * \frac{1}{A}}$  
+Capiamo che:  
+**1-** $\frac{1}{A}$ --> Numero medio di stazioni che deve aspettare prima di accedere al canale condiviso;  
+**2-** $A = k * p * (1 - p)^{kp}$  
+**3-** $k$ --> Numero di stazioni;  
+**4-** $p$ --> Probabilità che quella stazione possa accedere al canale.  
+
+In sintesi, questo protocollo, garantendo che ogni stazione sia autonoma, permette di inserire qualsiasi stazione in qualsiasi momento senza alcun bisogno di modificare qualcosa all'interno della rete stessa.  
+
+Inoltre i *frame* vengono trasmessi utilizzando la **_Codifica di Manchester_**.
