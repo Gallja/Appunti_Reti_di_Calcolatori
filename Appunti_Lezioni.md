@@ -28,6 +28,7 @@
         - [Protocollo ALOHA](#protocollo-aloha)
         - [Protocllo CSMA-CD](#protocollo-csma-cd)
             - [Binary Exponential Backoff](#beb-nel-dettaglio)
+        - [Codifica di Manchester](#codifica-di-manchester)
 
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
@@ -463,6 +464,11 @@ Come è possibile notare da questo disegno, la possibilità di avere una **colli
 
 > **NB**: La probabilità di collisione aumenta all'aumentare delle stazioni presenti sul canale.  
 
+Questo protocollo è standardizzato come **_IEEE 802.3_**.  
+Questo è il formato dei *frame*:  
+
+![formato frame](img/formato_frame.png)
+
 **Approfondimento su come ci si comporta in caso di collisione:**  
 Nel momento in cui ci si presenta di fronte ad una *collisione* questo protocollo fa in modo tale che, prima di ritrasmettere, ogni nodo attenda un tempo determinato dal **_BEB_** (_"Binary Exponential Backoff"_).  
 
@@ -487,8 +493,12 @@ Capiamo che:
 **1-** $\frac{1}{A}$ --> Numero medio di stazioni che deve aspettare prima di accedere al canale condiviso;  
 **2-** $A = k * p * (1 - p)^{kp}$  
 **3-** $k$ --> Numero di stazioni;  
-**4-** $p$ --> Probabilità che quella stazione possa accedere al canale.  
+**4-** $p$ --> Probabilità che quella stazione possa accedere al canale;  
+**5-** $2t_p$ --> tempo che serve per garantire il *collision detection*, uguale a circa $51,2 µs$ (tempo minimo all'interno del quale una stazione deve trasmettere).
 
 In sintesi, questo protocollo, garantendo che ogni stazione sia autonoma, permette di inserire qualsiasi stazione in qualsiasi momento senza alcun bisogno di modificare qualcosa all'interno della rete stessa.  
 
-Inoltre i *frame* vengono trasmessi utilizzando la **_Codifica di Manchester_**.
+#### Codifica di Manchester
+
+I *frame* vengono trasmessi utilizzando la **_Codifica di Manchester_**, ovvero un tipo di codifica che attua l'estrazione e codifica del **clock**.  
+Ogni *bit* è codificato come *basso-alto* (1) o *alto-basso* (0).
