@@ -25,6 +25,8 @@
     - [Topologia a bus](#topologia-a-bus)
     - [Protocollo Token-Ring](#protocollo-token-ring)
     - [Protocollo Ethernet](#protocollo-ethernet)
+        - [Protocollo ALOHA](#protocollo-aloha)
+        - [Protocllo CSMA-CD](#protocollo-csma-cd)
 
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
@@ -434,13 +436,18 @@ A differenza del protocollo precedente, non vi è un apparato centrale che regol
 
 **Come si è arrivati al protocollo Ethernet:**  
 
-**Protocollo ALOHA:**  
+#### Protocollo ALOHA  
 
 ![collisione aloha](img/collisione_aloha.png)
 
 Questo tipo di protocollo è chiamato **Protocollo ALOHA**, che funziona in modo tale che, per evitare eventuali collisioni durante la trasmissione, le varie stazioni coinvolte scelgano casualmente e con opportuni vincoli l'istante di tempo in cui provare a ritrasmettere. Ciò è possibile attuarlo grazie ad un meccanismo detto di *back-off*, cioé che la ritrasmissione viene effettuata in seguito ad un ritardo casuale compreso fra $0$ e $2^{k-1} T$, dove $T$ è il **tempo di trasmissione** del messaggio e $k$ dipende dal numero di collisioni già avvenute.  
 
-Si tratta di un tipo di protocollo abbastanza efficiente, poiché la *curva di utilizzo del canale condiviso* ha una forma di campana; all'aumentare delle stazioni ho un utilizzo maggiore, ma non eccessivo dato che cala nel momento in cui ci sono troppe stazioni che causano collisioni.  
+Si tratta di un tipo di protocollo non molto efficiente, poiché la *curva di utilizzo del canale condiviso* ha una forma di campana; all'aumentare delle stazioni ho un utilizzo maggiore, ma non eccessivo dato che cala nel momento in cui ci sono troppe stazioni che causano collisioni.  
 
 ![curva aloha](img/curva-aloha.png)
 
+#### Protocollo CSMA-CD
+
+Sigla di "**_Carrier Sense Multiple Access - Collision Detection_**".  
+
+Quando una stazione è intenzionata a trasmettere un *frame*, esegue l'operazione di "*Carrier Sense*", ovvero controlla che il canale condiviso sia o meno in modalità **_IDLE_**.  
