@@ -23,7 +23,8 @@
 - [Lezione 6](#lezione-6)
     - [Topologia a stella](#topologia-a-stella)
     - [Topologia a bus](#topologia-a-bus)
-
+    - [Protocollo Token-Ring](#protocollo-token-ring)
+    - [Protocollo Ethernet](#protocollo-ethernet)
 
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
@@ -386,11 +387,44 @@ Un'altra topologia per rappresentare un sistema di rete è quella a bus:
 Le prime connessioni **Ethernet** erano fatte in questo modo.  
 Se ricevo un segnale da **A**, successivamente si propagherà verso gli altri punti, ma è necessario notare che anche solo dal punto di vista fisico, il segnale arriva prima ai punti vicini.  
 
-Dal punto di vista meramente concettuale, le *reti a stella* e le *reti a bus* sono la stessa cosa.  
+Dal punto di vista meramente concettuale, le *reti a stella* e le *reti a bus* sono la stessa cosa; quello che svolge l'*hub* nella topologia a stella è esattamente ciò che fa il canale di comunicazione in quelle a bus.  
 
 > **Domanda**: come raggiungo solo una (o più) stazione e non tutte? Una soluzione potrebbe essere quella di far ricevere comunque a tutte le stazioni il *frame*, ma verrà scartato da quelle non interessate (conseguentemente ci dovrà essere una previa specificazione dei destinatari da parte del dispositivo che invia i dati). 
 
 ![pacchetto bus](img/pacchetto_bus.png)
 
-> **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ che trasmette a tutte le stazioni ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di sincronizzazione**. Utilizzo la **mutua a esclusione**. 
+> **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ o un _cavo/bus di sistema_ che trasmette a tutte le stazioni, ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di collisione**. Utilizzo la **mutua a esclusione**.  
+Di fatti il cavo della topologia a bus, essendo condiviso per tutte le stazioni, è una regione condivisa.  
 
+> Ci si trova dinanzi ad una collisione nel momento in cui due o più stazioni provano a trasmettere un frame sul bus nello stesso momento.  
+
+![collisione](img/collisione.png)
+
+> **Soluzione**: per l'accesso condiviso nelle *reti broadcast* si utilizzano 2 protocolli:
+1. **_Protocollo Token Ring_**;
+2. **_Protocollo Ethernet_**.  
+
+#### Protocollo Token-Ring
+
+Questo prtocollo si basa su un approccio **deterministico**.  
+Viene utilizzato un **_token_** come sorta di _semaforo_: la semantica è *"passo io o passi tu in base al token"*.  
+
+**Funzionamento:**  
+Viene eletta una stazione a **master** (che conosce la composizione della rete di cui fa parte) e genera un **token** inviandolo attravero un **_anello logico_** (ad esempio: prima **A**, poi **B** e successivamente **C**); il **token** viene passato tramite politica **_[Round-Robin](https://it.wikipedia.org/wiki/Round-robin#:~:text=La%20locuzione%20inglese%20round%2Drobin,nell'accedere%20ad%20una%20risorsa.)_**.  
+
+Ogni stazione viene opportunamente istruita in modo tale da inviare i suoi frame solo se possiede il **token** e, nel momento in cui una stazione che lo possiede ha da inviare un apposito *frame* nel *buffer*, lo invia sul canale passando anche il **token** stesso.  
+
+![token ring](img/token-ring.png)
+
+La rete deve ovviamente essere configarata opportunamente per aggiungere nuovi nodi e poterli includere senza particolari problemi all'interno dell'*anello logico*.  
+ 
+**Svantaggi:**  
+1. **_Fairness_**: bisognerebbe evitare che chiunque prenda il controllo del canale poi non ne approfitti (per scopi malevoli e non solo);
+2. **Perdita di tempo**: il **token**, girando in maniera sistematica, arriva a tutte le stazioni, comprese quelle che non hanno alcun *frame* da inviare;
+3. **Reset**: caricando nel *master* a funzione centrale di generazione del **token**, quando c'è un **crash di rete** e smette così di funzionare, è necessario il *reset* di tutto.  
+
+Questo approccio, generalmente, non viene usato perché gli svantaggi purtroppo superano i vantaggi.  
+
+#### Protocollo Ethernet
+
+A differenza del **protocollo Token-Ring** visto poc'anzi, quello **Ethernet** utilizza un approccio di tipo **casuale**.  
