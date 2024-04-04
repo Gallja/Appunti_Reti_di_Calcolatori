@@ -21,6 +21,8 @@
     - [Go Back N](#go-back-n)
     - [Point to Point Protocol](#ppp---point-to-point-protocol)
 - [Lezione 6](#lezione-6)
+    - [Topologia a stella](#topologia-a-stella)
+    - [Topologia a bus](#topologia-a-bus)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -349,6 +351,7 @@ Questa **topologia di comunicazione** è detta **_topologia a maglia_**.
 Adesso analizzeremo un'altra topologia di rete: quella di tipo **_broadcast_**.  
 
 > **NB**: **NON** è possibile realizzare una *comunicazione broadcast* attraverso una *topologia a maglia*.  
+Cosa che ci è utile fare nel momento in cui si parla di **LAN** (*Local Area Network*).
 
 ![topologia broadcast](img/broadcast.png)
 
@@ -360,10 +363,34 @@ Tutti ascoltano e viene mandato 1 solo messaggio; se ho _n_ nodi, allora dovrò 
 
 ### LEZIONE 6
 
+Ciò che va capito, a questo punto del corso, è come è possibile avere una comunicazione di tipo **_broadcast_** e non **_PPP_**, sapendo che la figura "a pentagono" vista finora non va bene per questa comunicazione.  
+
+Per realizzare una comunicazione **_broadcast_** (*uno a tutti*) esistono più **topologie**, che vedremo all'interno di questa lezione.
+
+#### TOPOLOGIA A STELLA
+
 ![broadcast 2](img/broadcast2.png)
 
-> **Domanda**: come raggiungo solo una (o più) stazione e non tutte? Una soluzione potrebbe essere quella di far ricevere comunque a tutte le stazioni il *frame*, ma verrà scartato da quelle non interessate (conseguentemente ci dovrà essere una previa specificazione dei destinatari da parte del dispositivo che invia i dati).  
+Un **hub**, al centro della figura, è un dispositivo fisico, e **non intelligente**, detto *centro-stella* passivo, che permette la propagazione di un segnale.  
 
-> **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ che trasmette a tutte le stazioni ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di sincronizzazione**. Utilizzo la **mutua a esclusione**.
+La *topologia* vista in figura è un **_centro stella passivo_**.  
 
 Sostanzialmente si utilizza un accesso al canale esclusivo, come se fosse completamente dedicato: **non posso consentire a più dispositivi di trasmettere simultaneamente**.  
+
+#### TOPOLOGIA A BUS
+
+Un'altra topologia per rappresentare un sistema di rete è quella a bus:
+
+![rete a bus](img/bus.png)
+
+Le prime connessioni **Ethernet** erano fatte in questo modo.  
+Se ricevo un segnale da **A**, successivamente si propagherà verso gli altri punti, ma è necessario notare che anche solo dal punto di vista fisico, il segnale arriva prima ai punti vicini.  
+
+Dal punto di vista meramente concettuale, le *reti a stella* e le *reti a bus* sono la stessa cosa.  
+
+> **Domanda**: come raggiungo solo una (o più) stazione e non tutte? Una soluzione potrebbe essere quella di far ricevere comunque a tutte le stazioni il *frame*, ma verrà scartato da quelle non interessate (conseguentemente ci dovrà essere una previa specificazione dei destinatari da parte del dispositivo che invia i dati). 
+
+![pacchetto bus](img/pacchetto_bus.png)
+
+> **Problema di Sistema Operativo**: nel momento in cui vi è un _centro stella_ che trasmette a tutte le stazioni ho un problema di **_memoria critica_**: necessito di un'apposita politica per gestire un potenziale **problema di sincronizzazione**. Utilizzo la **mutua a esclusione**. 
+
