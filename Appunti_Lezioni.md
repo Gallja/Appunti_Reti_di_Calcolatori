@@ -428,3 +428,19 @@ Questo approccio, generalmente, non viene usato perché gli svantaggi purtroppo 
 #### Protocollo Ethernet
 
 A differenza del **protocollo Token-Ring** visto poc'anzi, quello **Ethernet** utilizza un approccio di tipo **casuale**.  
+A differenza del protocollo precedente, non vi è un apparato centrale che regoli il traffico, poiché troppo vulnerabile; è meglio avere una probabilità di collisione, ma garantire che ogni stazione sia in grado di operare in assoluta autonomia sul canale ("*non devo comunicare la mia presenza a nessuno*").  
+
+> Un approccio *probabilistico* ha vinto su un approccio *deterministico*.  
+
+**Come si è arrivati al protocollo Ethernet:**  
+
+**Protocollo ALOHA:**  
+
+![collisione aloha](img/collisione_aloha.png)
+
+Questo tipo di protocollo è chiamato **Protocollo ALOHA**, che funziona in modo tale che, per evitare eventuali collisioni durante la trasmissione, le varie stazioni coinvolte scelgano casualmente e con opportuni vincoli l'istante di tempo in cui provare a ritrasmettere. Ciò è possibile attuarlo grazie ad un meccanismo detto di *back-off*, cioé che la ritrasmissione viene effettuata in seguito ad un ritardo casuale compreso fra $0$ e $2^{k-1} T$, dove $T$ è il **tempo di trasmissione** del messaggio e $k$ dipende dal numero di collisioni già avvenute.  
+
+Si tratta di un tipo di protocollo abbastanza efficiente, poiché la *curva di utilizzo del canale condiviso* ha una forma di campana; all'aumentare delle stazioni ho un utilizzo maggiore, ma non eccessivo dato che cala nel momento in cui ci sono troppe stazioni che causano collisioni.  
+
+![curva aloha](img/curva-aloha.png)
+
