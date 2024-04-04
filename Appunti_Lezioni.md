@@ -449,5 +449,12 @@ Si tratta di un tipo di protocollo non molto efficiente, poiché la *curva di ut
 #### Protocollo CSMA-CD
 
 Sigla di "**_Carrier Sense Multiple Access - Collision Detection_**".  
+Si tratta di un vero e proprio miglioramento del *protocollo ALOHA*.  
 
 Quando una stazione è intenzionata a trasmettere un *frame*, esegue l'operazione di "*Carrier Sense*", ovvero controlla che il canale condiviso sia o meno in modalità **_IDLE_**.  
+Questo protocollo, inoltre, adotta uno **_schema persistente_**: appena trovo libero il canale, trasmetto, ma se lo trovo occupato attendo un tempo casuale prima di ritentare la trasmissione.  
+
+Schema riassuntivo:
+
+![csma-cd](img/csma-cd.png)
+
