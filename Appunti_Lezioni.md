@@ -528,3 +528,12 @@ Ecco come funziona in relazione al *clock* di trasmissione del calcolatore:
 Il ricevitore non è in grado di capire quando il trasmettitore comincia ad inviare i *bit*, ma gli interessa soprattutto sincronizzare il suo *clock* proprio dalla sequenza di *bit* che gli vengono inviati (è proprio questo lo scopo della *codifica di Manchester*).  
 Vedremo quindi come fa a sincronizzare il proprio *clock*.  
 
+![codifica di Manchester 3](img/manchester_3.png)
+
+> **Domanda**: Come faccio a far capire al ricevitore quando stanno arrivando effettivamente i *bit* del trasmettitore e sincronizzare il suo *clock*?  
+
+> **Soluzione**: Vengono aggiunti **8 _bit_** di **preambolo** al messaggio allo scopo di "estrarre" il *clock* e far diventare il proprio esattamente come quello del trasmettitore (si fa una sorta di "copia" del *clock*).  
+Al termine della sequenza ho i *bit* $011$, che fanno capire al trasmettitore che dal prossimo *bit* ci saranno i dati trasmessi.  
+
+Nel momento in cui il [**_bit rate_**](https://it.wikipedia.org/wiki/Velocit%C3%A0_di_trasmissione) supera i $10 Mbps$, **non** è più possibile utilizzare la **_codifica di Manchester_**.  
+
