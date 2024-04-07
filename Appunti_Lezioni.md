@@ -537,3 +537,4 @@ Al termine della sequenza ho i *bit* $011$, che fanno capire al trasmettitore ch
 
 Nel momento in cui il [**_bit rate_**](https://it.wikipedia.org/wiki/Velocit%C3%A0_di_trasmissione) supera i $10 Mbps$, **non** è più possibile utilizzare la **_codifica di Manchester_**.  
 
+![alt text](image.png)
