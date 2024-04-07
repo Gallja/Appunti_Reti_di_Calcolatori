@@ -29,6 +29,11 @@
         - [Protocllo CSMA-CD](#protocollo-csma-cd)
             - [Binary Exponential Backoff](#beb-nel-dettaglio)
         - [Codifica di Manchester](#codifica-di-manchester)
+- [Lezione 7](#lezione-7)
+    - [Approfondimento sulla Codifica di Manchester](#approfondimento-sulla-codifica-di-manchester)  
+        - [Comportamento del trasmettitore](#comportamento-del-trasmettitore)
+        - [Comportamento del ricevitore](#comportamento-del-ricevitore)
+
 
 ### LEZIONE 1 - INTRODUZIONE
 Per prima cosa va introdotto il concetto di **_rete_**: sistema distribuito di computer.  
@@ -463,6 +468,7 @@ Schema riassuntivo:
 Come è possibile notare da questo disegno, la possibilità di avere una **collisione** esiste ancora nel momento in cui, dopo il *Carrier-Sense*, **A** e **B** trasmettono un *frame* nello stesso istante di tempo, ma, a differenza del *protocollo ALOHA*, non c'è più bisogno di trasmettere l'intero pacchetto: se 2 stazioni collidono, blocco la trasmissione.  
 
 > **NB**: La probabilità di collisione aumenta all'aumentare delle stazioni presenti sul canale.  
+Essendo dunque prevista la collisione all'interno di questo schema, ci sarà una "parte" di protocollo preposta alla gestione delle ultime (la parte di **_Collision-Detection_**).
 
 Questo protocollo è standardizzato come **_IEEE 802.3_**.  
 Questo è il formato dei *frame*:  
@@ -487,7 +493,7 @@ Inoltre ogni stazione ha un contatore apposito per la generazione di un numero c
 **Vantaggio principale:** si tratta di un algoritmo **adattivo al traffico percepito**, poiché dipende dal numero $i$ di collisioni avvenute.  
 **Svantaggio principale:** l'algoritmo "dilata" l'accesso e non garantisce *fairness* (concetto visto anche per il *protocollo Token-Ring*).  
 
-> **Osservazione**:  
+> **Osservazione sulla formula dell'utilizzo del canale**:  
 $U = \frac{t_x}{t_x + 2t_p * \frac{1}{A}}$  
 Capiamo che:  
 **1-** $\frac{1}{A}$ --> Numero medio di stazioni che deve aspettare prima di accedere al canale condiviso;  
@@ -501,4 +507,24 @@ In sintesi, questo protocollo, garantendo che ogni stazione sia autonoma, permet
 #### Codifica di Manchester
 
 I *frame* vengono trasmessi utilizzando la **_Codifica di Manchester_**, ovvero un tipo di codifica che attua l'estrazione e codifica del **clock**.  
-Ogni *bit* è codificato come *basso-alto* (1) o *alto-basso* (0).
+Ogni *bit* è codificato come *transizione basso-alto* (1) o *transizione alto-basso* (0).
+
+### LEZIONE 7
+
+#### Approfondimento sulla Codifica di Manchester
+È uno schema di modulazione a basso costo per trasmissioni radio; non fa altro che attuare l'estrazione e codifica del *clock*.  
+
+#### Comportamento del trasmettitore:
+
+![codifica di Manchester](img/manchester.png)
+
+Ecco come funziona in relazione al *clock* di trasmissione del calcolatore:
+
+![codifica di Manchester 2](img/manchester_2.png)
+
+È possibile notare come la tramissione cominci "mezzo bit" di *clock* dopo, questo dà la possibilità al ricevente di poter sincronizzare il proprio di *clock*.
+
+#### Comportamento del ricevitore:
+Il ricevitore non è in grado di capire quando il trasmettitore comincia ad inviare i *bit*, ma gli interessa soprattutto sincronizzare il suo *clock* proprio dalla sequenza di *bit* che gli vengono inviati (è proprio questo lo scopo della *codifica di Manchester*).  
+Vedremo quindi come fa a sincronizzare il proprio *clock*.  
+
