@@ -559,7 +559,7 @@ Applicando la formula vista durante la lezione precedente:
 $U = \frac{t_x}{t_x + 2t_p} = \frac{25*10^2m}{2*10^8} = 12,5 * 10^{-6} m/s = 12,5 µs$  
 Con $2 * T_p = 2 * 12,5 = 25 µs$
 
-> L'**ente standardizzatore** lo ha fatto diventare $52,2 µs$ (per questo motivo l'**unità di tempo** utilizzata per il **_BEB_** pari a $52,2 µs$).  
+> L'**ente standardizzatore** lo ha fatto diventare $51,2 µs$ (per questo motivo l'**unità di tempo** utilizzata per il **_BEB_** pari a $51,2 µs$).  
 
 Inoltre è bene tenere presente che il **size minimo** del *frame* è di $64 Byte$ (ovvero $512 bit$).  
 Facendo dei semplici conti, sapendo che come *min* devo avere $64 Byte$, ma contando che ho parte di **_Destination_**, **_Source_**, **_Length_** e **_CRC_** che "coprono" in totale $18 Byte$, ho un *campo di padding* per arrivare a quei $64 Byte$: da $0$ a $46 Byte$.
@@ -576,3 +576,14 @@ All'interno dello standard diventa quindi necessario ridurre la dimensione minim
 $2 * T_p = \frac {10^2} {2 * 10^8} = 0,5 µs$
 
 #### VLAN
+Le **_VLAN_** permettono l'aggregazione delle stazioni in gruppi omogenei seguendo lo **_Standard IEEE 802.1Q_**.  
+I *frame* delle **VLAN** vengono instradati secondo il loro **_MAC Address_** e secondo il proprio **_VLAN Identifier_** (infatti gli _end system_ di 2 **VLAN** diverse **NON** possono comunicare).  
+
+Ecco il formato **VLAN**:
+
+![formato VLAN](img/formato_vlan.png)
+
+Per poter realizzare opportunamente una **VLAN** occorre modificare il **bridge/switch** in modo tale che, nel processo di _learning_, impari il _colore/gruppo_ della **stazione**.  
+
+![struttura VLAN](img/vlan_struttura.png)
+
