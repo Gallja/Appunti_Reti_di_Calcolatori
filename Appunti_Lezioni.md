@@ -565,6 +565,14 @@ Inoltre è bene tenere presente che il **size minimo** del *frame* è di $64 Byt
 Facendo dei semplici conti, sapendo che come *min* devo avere $64 Byte$, ma contando che ho parte di **_Destination_**, **_Source_**, **_Length_** e **_CRC_** che "coprono" in totale $18 Byte$, ho un *campo di padding* per arrivare a quei $64 Byte$: da $0$ a $46 Byte$.
 
 #### Standard di rete a 1Gps
+Tutto ciò che abbiamo visto finora è relativo ad una rete a $10 Mbps$, ma cosa succederebbe nel caso in cui avessi una rete a $1 Gbps$?  
 
+Anzitutto cambierebbe la **dimensione minima del pacchetto** a $515 ns$, ma, non variando $T_p$, il protocollo non è in grado di rilevare le collisioni.  
+All'interno dello standard diventa quindi necessario ridurre la dimensione minima del *frame* (necessari $50 kbit$).  
+
+> Lunghezza minima del cavo pari a $200 m$.  
+
+> Osservando la formula:  
+$2 * T_p = \frac {10^2} {2 * 10^8} = 0,5 µs$
 
 #### VLAN
