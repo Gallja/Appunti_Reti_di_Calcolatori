@@ -542,6 +542,9 @@ Nel momento in cui il [**_bit rate_**](https://it.wikipedia.org/wiki/Velocit%C3%
 
 #### Standard di rete a 10Mbps
 
+La lunghezza minima del cavo deve essere di $2,5 km$ (per le *reti LAN* con cavo che dev'essere di lunghezza maggiore, ne creo una nuova e la compongo da 0).  
+Inoltre il $T_x$ minimo è pari a $51,2 µs$.
+
 Prendiamo in esame il seguente caso:  
 
 ![standard 10Mbps](img/standard_1.png)
