@@ -33,6 +33,9 @@
     - [Approfondimento sulla Codifica di Manchester](#approfondimento-sulla-codifica-di-manchester)  
         - [Comportamento del trasmettitore](#comportamento-del-trasmettitore)
         - [Comportamento del ricevitore](#comportamento-del-ricevitore)
+    - [Standard di rete a 10Mbps](#standard-di-rete-a-10mbps)
+    - [Standard di rete a 1Gbps](#standard-di-rete-a-1gps)
+    - [VLAN](#vlan)
 
 
 ### LEZIONE 1 - INTRODUZIONE
@@ -537,3 +540,28 @@ Al termine della sequenza ho i *bit* $011$, che fanno capire al trasmettitore ch
 
 Nel momento in cui il [**_bit rate_**](https://it.wikipedia.org/wiki/Velocit%C3%A0_di_trasmissione) supera i $10 Mbps$, **non** è più possibile utilizzare la **_codifica di Manchester_**.  
 
+#### Standard di rete a 10Mbps
+
+Prendiamo in esame il seguente caso:  
+
+![standard 10Mbps](img/standard_1.png)
+
+> **Problema**: **A** non è in grado di rilevare la **_collisione_**.  
+
+> **Soluzione**: Imporre di usare la propria **porta I/O** di trasmissione per almeno $2 * T_p$.  
+Da questo è facile intuire che $T_x ≥ 2 * T_p$.  
+Con $T_x$ che corrisponde al **_tempo di trasmissione_**.
+
+Applicando la formula vista durante la lezione precedente:  
+$U = \frac{t_x}{t_x + 2t_p} = \frac{25*10^2m}{2*10^8} = 12,5 * 10^{-6} m/s = 12,5 µs$  
+Con $2 * T_p = 2 * 12,5 = 25 µs$
+
+> L'**ente standardizzatore** lo ha fatto diventare $52,2 µs$ (per questo motivo l'**unità di tempo** utilizzata per il **_BEB_** pari a $52,2 µs$).  
+
+Inoltre è bene tenere presente che il **size minimo** del *frame* è di $64 Byte$ (ovvero $512 bit$).  
+Facendo dei semplici conti, sapendo che come *min* devo avere $64 Byte$, ma contando che ho parte di **_Destination_**, **_Source_**, **_Length_** e **_CRC_** che "coprono" in totale $18 Byte$, ho un *campo di padding* per arrivare a quei $64 Byte$: da $0$ a $46 Byte$.
+
+#### Standard di rete a 1Gps
+
+
+#### VLAN
