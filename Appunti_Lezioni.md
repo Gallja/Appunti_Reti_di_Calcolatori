@@ -9,6 +9,10 @@
     - [Reti Best-Effort e Connection Oriented](#reti-best-effort-e-connection-oriented)
     - [Approfondimento sulle reti Best-Effort](#approfondimento-sulle-best-effort)
     - [I livelli funzionali](#i-livelli-funzionali)
+    - [I dispositivi di rete](#i-dispositivi-di-rete)
+        - [Livello 1 - Hub e Bus Seriale](#livello-1---hub-e-bus-seriale)
+        - [Livello 2 - Bridge e Switch](#livello-2---bridge-e-switch)
+        - [Livello 3 - Router](#livello-3---router)
 - [Lezione 4](#lezione-4)
     - [Il concetto di Framing](#il-concetto-di-framing)
     - [Il protocollo HDLC](#il-protocollo-hdlc)
@@ -180,6 +184,47 @@ In sintesi, possiamo affermare che per il *dialogo orizzontale* ci si avvale dei
 >**OSSERVAZIONE:** Le **_socket_** non sono un vero e proprio livello, ma sono funzioni del *Sistema Operativo* che creano [*binding*](https://it.wikipedia.org/wiki/Binding#:~:text=In%20informatica%20il%20binding%20%C3%A8,ed%20il%20suo%20corrispettivo%20valore.) tra un processo ed il processo remoto con cui sta comunicando.
 
 ![overhead](img/overhead.png)
+
+#### I dispositivi di rete
+I dispositivi di rete si occupano dell'instradamento dei pacchetti che viaggiano in rete. Ogni dispositivo si occupa di questo compito in base al proprio livello di riferimento.  
+
+#### Livello 1 - Hub e Bus Seriale
+L'**hub** è un dispositivo di _livello 1_ che, dato un messaggio in input, permette di farlo ricevere a tutti gli interlocutori in **broadcast**.  
+Nel momento in cui un nodo **_A_** trasferisce un messaggio verso un nodo **_B_**, l'**hub** si occupa di propagare il messaggio a **tutti** i nodi collegati (mittente compreso).  
+Si tratta di un dispositivo molto comodo poiché è possibile, tramite un semplice cavo *punto punto* (come, ad esempio, un *doppino telefonico*), collegare ogni stazione all'**hub**.
+
+Per quanto riguarda invece il **Bus Seriale**, si tratta di un dispositivo formato da un **cavo coassiale** al quale si connettono i trasmettitori che toccano il mezzo conduttore interno.  
+
+![bus seriale](img/bus_seriale.png)
+
+Nel momento in cui **_A_** trasmette il suo segnale, questo si propaga verso tutte le direzioni e raggiunge quindi tutti i nodi collegati al **bus seriale**.  
+È dunque facilmente intuibile che il tipo di comunicazione sia **broadcast**.
+
+#### Livello 2 - Bridge e Switch
+Il **bridge** è un dispositivo che nasce per risolvere il problema dell'alto tasso di collisione nel momento in cui, all'interno di una tratta Ethernet, vi sono tante stazioni collegate. In sintesi, **troppe stazioni competono sullo stesso dominio di collisione**.  
+Il **bridge** ha dunque il compito di **separare i domini di collisione**; se ho le stazioni **_A_** e **_B_**, mettendo in contatto il dominio di **_A_** con quello di **_B_**, il traffico generato all'interno dell'area di **_A_** e **_B_** rimane "confinato" nella stessa area. Dimezzo la probabilità di accesso al canale.  
+
+Il **bridge** ha inoltre una **_tabella di forwarding_**, che contiene l'identificativo di una stazione, il dominio in cui si trova e la porta di output che dovrà utilizzare.  
+Nel caso in cui arrivasse un *frame* in cui mittente e destinatario sono nella stessa porta, il **bridge** *butta via* quanto ricevuto.  
+
+![bridge](img/bridge.png)
+
+**Fase di learning**: quando il **bridge** riceve un *frame*, legge l'indirizzo di destinazione e aggiunge le **entry** alla sua tabella.  
+Nel caso in cui la destinazione non fosse ancora presente nella tabella, esegue la comunicazione in **broadcast**, ma senza mandare nella direzione nella quale ha ricevuto. La **velocità di learning** dipende dal traffico.  
+
+Cosa succederebbe nel caso in cui venisse aggiunto un nuovo nodo o venisse cambiato l'**hub** al quale un nodo era collegato?  
+A questo punto, il **bridge** avrebbe a tutti gli effetti una **tabella di forwarding** sbagliata; a questo punto, come suluzione al problema, viene introdotto il concetto di **_TTL - Time To Leave_** ad ogni entry della tabella: quando il **_TTL_** scade, viene riavviata la fase di **learning**.  
+
+
+Per quanto riguarda invece lo **switch**, non c'è **CSMA/CD**, ma solo un cavo dedicato dal nodo allo **switch** stesso (per questo non ci sono collisioni).  
+Ha un processo di learning molto simile a quello del **bridge**.  
+
+![switch](img/vlan_struttura.png)
+
+La connessione _"switch to switch"_ viene chiamata **_trank_** e passano *frame* di qualsiasi colore (**VLAN**) e sarà lo **switch** destinatario a gestirlo.
+
+#### Livello 3 - Router
+
 
 ### LEZIONE 4
 
